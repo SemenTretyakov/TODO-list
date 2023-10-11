@@ -3,6 +3,7 @@ const sequelize = require('./src/models/db');
 const config = require('./src/config/db.config');
 const cors = require('cors');
 const router = require('./src/routes/index');
+const errorMiddleware = require('./src/middleware/ErrorMidlleware');
 
 const PORT = config.DB_MY_PORT || 3000;
 
@@ -16,6 +17,9 @@ app.use(
 );
 app.use(express.json());
 app.use('/api', router);
+
+// error midlleware
+app.use(errorMiddleware);
 
 const start = async () => {
 	try {
