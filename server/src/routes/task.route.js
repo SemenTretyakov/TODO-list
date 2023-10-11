@@ -3,9 +3,9 @@ const router = new Router();
 
 const taskController = require('../controllers/task.controller');
 
-router.post('/add', taskController);
-router.get('/priorities', taskController);
-router.put('/update/:id', taskController);
-router.get('/', taskController);
+router.post('/add', taskController.addTask);
+router.get('/priorities', taskController.priorities);
+router.put('/update/:id', taskController.updateTask);
+// router.get('/', taskController);
 
 module.exports = router;

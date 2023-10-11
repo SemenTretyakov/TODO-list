@@ -5,4 +5,5 @@ module.exports = {
 	DB_NAME: 'todo_list',
 	DB_DIALECT: 'postgres',
 	DB_PORT: '5432',
+	DB_MY_PORT: '5000',
 };
