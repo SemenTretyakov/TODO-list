@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 				autoIncrement: true,
 				primaryKey: true,
 			},
-			caption: {
+			title: {
 				type: DataTypes.STRING,
 				allowNull: false,
 				unique: true,
@@ -20,12 +20,12 @@ module.exports = (sequelize) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			create_at: {
+			created_at: {
 				type: DataTypes.DATE,
 				allowNull: false,
 				defaultValue: DataTypes.NOW,
 			},
-			update_at: {
+			updated_at: {
 				type: DataTypes.DATE,
 				allowNull: false,
 				defaultValue: DataTypes.NOW,
