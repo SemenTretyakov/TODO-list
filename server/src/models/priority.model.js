@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./db');
 
 module.exports = (sequelize) => {
 	const Priority = sequelize.define(

@@ -1,6 +1,8 @@
 class AuthController {
-	async signin(req, res) {
-		return res.json({ message: 'Work' });
+	async signin(req, res, next) {
+		try {
+			return res.json({ message: 'registr' });
+		} catch (error) {}
 	}
 }
 

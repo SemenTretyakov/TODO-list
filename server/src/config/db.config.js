@@ -6,4 +6,12 @@ module.exports = {
 	DB_DIALECT: 'postgres',
 	DB_PORT: '5432',
 	DB_MY_PORT: '5000',
+	JWT_ACCESS_SECRET: 'jwt-secret-key',
+	JWT_REFRESH_SECRET: 'jwt-refresh-secret-key',
+	SMTP_HOST: 'smtp.gmail.com',
+	SMTP_PORT: 587,
+	SMTP_DOMAIN: 'gmail.com',
+	SMTP_USER: 'sementest10@gmail.com',
+	SMTP_PASSWORD: 'rootroot',
+	API_URL: 'http://localhost:5000',
 };

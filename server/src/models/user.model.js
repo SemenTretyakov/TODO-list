@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			login: {
+			email: {
 				type: DataTypes.STRING,
 				allowNull: false,
 				unique: true,
@@ -32,7 +32,15 @@ module.exports = (sequelize) => {
 				allowNull: false,
 			},
 			supervisorid: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			isActivated: {
+				type: DataTypes.BOOLEAN,
+				allowNull: true,
+			},
+			activationLink: {
+				type: DataTypes.STRING,
 				allowNull: true,
 			},
 		},
