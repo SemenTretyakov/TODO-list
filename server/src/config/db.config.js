@@ -13,5 +13,6 @@ module.exports = {
 	SMTP_DOMAIN: 'gmail.com',
 	SMTP_USER: 'sementest10@gmail.com',
 	SMTP_PASSWORD: 'rootroot',
+	SMTP_APP_PASSWORD: 'qwnm snxa feyk ogka',
 	API_URL: 'http://localhost:5000',
 };

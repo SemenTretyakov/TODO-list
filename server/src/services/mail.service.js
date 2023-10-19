@@ -9,7 +9,7 @@ class MailService {
 			secure: false,
 			auth: {
 				user: config.SMTP_USER,
-				pass: config.SMTP_PASSWORD,
+				pass: config.SMTP_APP_PASSWORD,
 			},
 		});
 	}
