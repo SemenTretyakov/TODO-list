@@ -2,7 +2,7 @@ const ErrorApi = require('../error/error.api');
 
 module.exports = function (err, req, res, next) {
 	if (err instanceof ErrorApi) {
-		res.status(err.status).json({ message: err.message });
+		res.status(err.status).json({ message: err.message, errors: err.errors });
 	}
 
 	return res.status(500).json({ message: 'Непредвиденная ошибка!' });

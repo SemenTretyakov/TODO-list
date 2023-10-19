@@ -15,4 +15,5 @@ module.exports = {
 	SMTP_PASSWORD: 'rootroot',
 	SMTP_APP_PASSWORD: 'qwnm snxa feyk ogka',
 	API_URL: 'http://localhost:5000',
+	CLIENT_URL: 'https://ya.ru/',
 };

@@ -1,19 +1,22 @@
 class ErrorApi extends Error {
-	constructor(status, message) {
-		super();
+	status;
+	errors;
+
+	constructor(status, message, errors) {
+		super(message);
 		this.status = status;
-		this.message = message;
+		this.errors = errors;
 	}
-	static unauthorized(message) {
-		new ErrorApi(403, message);
+	static unauthorized() {
+		return new ErrorApi(401, 'Пользователь не авторизован');
 	}
 
 	static internal(message) {
-		new ErrorApi(500, message);
+		return new ErrorApi(500, message);
 	}
 
-	static badRequest(message) {
-		new ErrorApi(404, message);
+	static badRequest(message, errors = []) {
+		return new ErrorApi(400, message, errors);
 	}
 }
 

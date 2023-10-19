@@ -12,10 +12,10 @@ const userModel = sequelize.models.user;
 class UserService {
 	async registration(firstname, lastname, fathername, email, password) {
 		try {
-			const candidate = await userModel.findOne({ where: { email } });
+			const person = await userModel.findOne({ where: { email } });
 
-			if (candidate) {
-				throw new Error(
+			if (person) {
+				throw ErrorApi.badRequest(
 					`Пользователь с почтовым адресом ${email} уже существует`
 				);
 			}
@@ -45,8 +45,14 @@ class UserService {
 			throw error;
 		}
 	}
-	activate(req, res) {
-		res.json({ ff: 'dd' });
+
+	async activate(activationLink) {
+		const user = await userModel.findOne({ activationLink });
+		if (!user) {
+			throw ErrorApi.badRequest('Неккоректная ссылка');
+		}
+		user.isActivated = true;
+		await user.save();
 	}
 }
 
