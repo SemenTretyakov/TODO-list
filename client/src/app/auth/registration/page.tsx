@@ -1,3 +1,4 @@
+'use client';
 import { ReactElement } from 'react';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
@@ -5,8 +6,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import { Montserrat } from 'next/font/google';
+import NextLink from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import { FilledInput, InputLabel } from '@mui/material';
@@ -15,15 +19,25 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import { useState } from 'react';
+// import { handleCustomerCreating } from "../../controllers/controller";
+// import { RegistrationInputs } from "../../../types";
+import { ToastContainer } from 'react-toastify';
+
+const montserrat = Montserrat({
+	weight: '400',
+	subsets: ['latin'],
+});
 
 export default function Registration(): ReactElement {
 	const {
 		register,
+		handleSubmit,
 		formState: { errors },
 	} = useForm({
 		mode: 'onBlur',
 	});
 	const [showPassword, setShowPassword] = useState(false);
+	const router = useRouter();
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
 	const handleMouseDownPassword = (
 		event: React.MouseEvent<HTMLButtonElement>
@@ -40,6 +54,7 @@ export default function Registration(): ReactElement {
 				justifyContent: 'center',
 			}}
 		>
+			<ToastContainer />
 			<Container
 				maxWidth="xs"
 				disableGutters={true}
@@ -56,6 +71,7 @@ export default function Registration(): ReactElement {
 						<Typography>Уже есть учетная запись?</Typography>
 						<Link
 							href="/auth/login"
+							component={NextLink}
 							underline="none"
 							fontSize="20px"
 							fontWeight="500"
@@ -75,37 +91,37 @@ export default function Registration(): ReactElement {
 									message: 'E-mail не может быть пустым',
 								},
 								validate: {
-									hasSpace: (value: string) =>
+									hasSpace: (value) =>
 										/^[^\s]+(\s+[^\s]+)*$/.test(value) ||
 										'Адрес электронной почты не должен содержать начальные или конечные пробелы',
-									hasDomain: (value: string) =>
+									hasDomain: (value) =>
 										/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value) ||
 										'Адрес электронной почты должен содержать доменное имя (например, example.com)',
-									hasDogSymbol: (value: string) =>
+									hasDogSymbol: (value) =>
 										/@/.test(value) ||
 										'Адрес электронной почты должен содержать @',
-									hasIncorrect: (value: string) =>
+									hasIncorrect: (value) =>
 										/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
 											value
 										) || 'Некорректный e-mail',
 								},
 							})}
 						/>
-						{errors?.email ? (
-							<FormHelperText error>
-								{errors?.email && (
-									<Typography variant="body2" component="span">
-										{errors.email?.message || 'Error'}
-									</Typography>
-								)}
-							</FormHelperText>
-						) : (
-							<FormHelperText>
-								<Typography variant="body2" component="span">
-									Мы вышлем на него подтверждение
-								</Typography>
-							</FormHelperText>
-						)}
+						{/* {errors?.email ? (
+              <FormHelperText error>
+                {errors?.email && (
+                  <Typography variant="body2" component="span">
+                    {errors.email?.message || "Error"}
+                  </Typography>
+                )}
+              </FormHelperText>
+            ) : (
+              <FormHelperText>
+                <Typography variant="body2" component="span">
+                  Мы вышлем на него подтверждение заказа
+                </Typography>
+              </FormHelperText>
+            )} */}
 					</FormControl>
 					<FormControl fullWidth variant="filled" margin="normal">
 						<InputLabel htmlFor="name-input">Имя</InputLabel>
@@ -120,19 +136,19 @@ export default function Registration(): ReactElement {
 								},
 								minLength: 1,
 								validate: {
-									hasNoSymbols: (value: string) =>
+									hasNoSymbols: (value) =>
 										/[a-zA-Zа-яА-я]/g.test(value) ||
 										'Имя не должно содержать специальные символы или цифры',
 								},
 							})}
 						></FilledInput>
-						<FormHelperText error>
-							{errors?.name && (
-								<Typography variant="body2" component="span">
-									{errors.name?.message || 'Error'}
-								</Typography>
-							)}
-						</FormHelperText>
+						{/* <FormHelperText error>
+              {errors?.name && (
+                <Typography variant="body2" component="span">
+                  {errors.name?.message || "Error"}
+                </Typography>
+              )}
+            </FormHelperText> */}
 					</FormControl>
 
 					<FormControl fullWidth variant="filled" margin="normal">
@@ -148,19 +164,19 @@ export default function Registration(): ReactElement {
 								},
 								minLength: 1,
 								validate: {
-									hasNoSymbols: (value: string) =>
+									hasNoSymbols: (value) =>
 										/[a-zA-Zа-яА-я]/g.test(value) ||
 										'Фамилия не должна содержать специальные символы или цифры',
 								},
 							})}
 						></FilledInput>
-						<FormHelperText error>
-							{errors?.lastname && (
-								<Typography variant="body2" component="span">
-									{errors.lastname?.message || 'Error'}
-								</Typography>
-							)}
-						</FormHelperText>
+						{/* <FormHelperText error>
+              {errors?.lastname && (
+                <Typography variant="body2" component="span">
+                  {errors.lastname?.message || "Error"}
+                </Typography>
+              )}
+            </FormHelperText> */}
 					</FormControl>
 					<FormControl variant="filled" fullWidth margin="normal">
 						<InputLabel htmlFor="password-input">Пароль</InputLabel>
@@ -172,21 +188,21 @@ export default function Registration(): ReactElement {
 							fullWidth
 							{...register('password', {
 								validate: {
-									isUpper: (value: string) =>
+									isUpper: (value) =>
 										/[A-ZА-Я]/.test(value) ||
 										'Пароль должен содержать хотя бы одну заглавную букву (A-Z, А-Я)',
-									isLower: (value: string) =>
+									isLower: (value) =>
 										/[a-zа-я]/.test(value) ||
 										'Пароль должен содержать хотя бы одну строчную букву (a-z, а-я)',
-									isNumber: (value: string) =>
+									isNumber: (value) =>
 										/[0-9]/.test(value) ||
 										'Пароль должен содержать как минимум одну цифру (0-9)',
-									hasSpace: (value: string) =>
+									hasSpace: (value) =>
 										/^[-a-zA-Zа-яА-я0-9-()!@#$%^&*_]+(\s+[-a-zA-Zа-яА-я0-9-()!@#$%^&*_]+)*$/.test(
 											value
 										) ||
 										'Пароль не должен содержать начальные или конечные пробелы',
-									hasSpecial: (value: string) =>
+									hasSpecial: (value) =>
 										/[!@#$%^&*_]/.test(value) ||
 										'Пароль должен содержать хотя бы один специальный символ (например, ! @ # $ % ^ & * _ )',
 								},
@@ -212,21 +228,21 @@ export default function Registration(): ReactElement {
 								</InputAdornment>
 							}
 						/>
-						{errors?.password ? (
-							<FormHelperText error id="component-helper-text">
-								{errors?.password && (
-									<Typography variant="body2" component="span">
-										{errors.password?.message || 'Error'}
-									</Typography>
-								)}
-							</FormHelperText>
-						) : (
-							<FormHelperText>
-								<Typography variant="body2" component="span">
-									Пароль должен содержать не менее 8 символов
-								</Typography>
-							</FormHelperText>
-						)}
+						{/* {errors?.password ? (
+              <FormHelperText error id="component-helper-text">
+                {errors?.password && (
+                  <Typography variant="body2" component="span">
+                    {errors.password?.message || "Error"}
+                  </Typography>
+                )}
+              </FormHelperText>
+            ) : (
+              <FormHelperText>
+                <Typography variant="body2" component="span">
+                  Пароль должен содержать не менее 8 символов
+                </Typography>
+              </FormHelperText>
+            )} */}
 					</FormControl>
 
 					<Button
@@ -234,7 +250,7 @@ export default function Registration(): ReactElement {
 						variant="contained"
 						fullWidth={true}
 						color="secondary"
-						// onClick={handleSubmit(onSubmit)}
+						className={montserrat.className}
 					>
 						Зарегистрироваться
 					</Button>
